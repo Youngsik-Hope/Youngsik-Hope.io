@@ -1,14 +1,34 @@
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
-exports.createPages = ({ graphql, actions }) => {
+// GraphQL 스키마 커스터마이징 추가
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions
+  const typeDefs = `
+    type MarkdownRemarkFrontmatter {
+      title: String!
+      date: Date! @dateformat
+      template: String!
+      tags: [String]
+      categories: [String]
+      description: String
+      thumbnail: File @fileByRelativePath
+      comments_off: Boolean
+      slug: String
+    }
+  `
+  createTypes(typeDefs)
+}
+
+exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
-  // const blogPost = path.resolve(`./src/templates/blog-post.js`)
-  return graphql(
-    `
+  const result = await graphql(`
     {
-      allMarkdownRemark(limit: 1000, sort: {frontmatter: {date: DESC}}) {
+      allMarkdownRemark(
+        sort: { frontmatter: { date: DESC } }
+        filter: { frontmatter: { template: { in: ["post", "page"] } } }
+      ) {
         edges {
           node {
             id
@@ -16,52 +36,106 @@ exports.createPages = ({ graphql, actions }) => {
               slug
             }
             frontmatter {
-              templateKey
               title
-              date(formatString: "DD:MM:YYYY hh:mm")
-
+              date
+              template
+              tags
+              categories
+              description
+              thumbnail
+              comments_off
             }
           }
         }
       }
     }
-    `
-  ).then(result => {
-    if (result.errors) {
-      throw result.errors
-    }
-    const posts = result.data.allMarkdownRemark.edges
-    // Template For blog-post
-    const blogPost = posts.filter(item => item.node.frontmatter.templateKey === 'blog-post')
-    blogPost.forEach((post, index) => {
-      const previous = index === blogPost.length - 1 ? null : blogPost[index + 1].node
-      const next = index === 0 ? null : blogPost[index - 1].node
+  `)
 
-      createPage({
-        // path: post.node.fields.slug.split('/').slice(2, -1).join('/') === '' ? '/' : `/${post.node.fields.slug.split('/').slice(2, -1).join('/')}`,
-        path: post.node.fields.slug,
-        component: path.resolve(
-          `src/templates/blog-post.js`
-        ),
-        context: {
-          slug: post.node.fields.slug,
-          previous,
-          next,
-        },
-      })
+  if (result.errors) {
+    throw result.errors
+  }
+
+  const posts = result.data.allMarkdownRemark.edges
+  const postTemplate = path.resolve(`./src/templates/post.js`)
+  const pageTemplate = path.resolve(`./src/templates/page.js`)
+  const tagTemplate = path.resolve(`./src/templates/topic.js`)
+  const categoryTemplate = path.resolve(`./src/templates/category.js`)
+
+  // 태그와 카테고리 세트 생성
+  const tagSet = new Set()
+  const categorySet = new Set()
+
+  // 포스트와 페이지 생성
+  posts.forEach(({ node }, index) => {
+    const previous = index === posts.length - 1 ? null : posts[index + 1].node
+    const next = index === 0 ? null : posts[index - 1].node
+
+    // 태그와 카테고리 수집
+    if (node.frontmatter.tags) {
+      node.frontmatter.tags.forEach(tag => tagSet.add(tag))
+    }
+    if (node.frontmatter.categories) {
+      node.frontmatter.categories.forEach(category => categorySet.add(category))
+    }
+
+    // 페이지 생성
+    createPage({
+      path: node.fields.slug,
+      component: node.frontmatter.template === 'post' ? postTemplate : pageTemplate,
+      context: {
+        slug: node.fields.slug,
+        previous,
+        next,
+      },
     })
-  
-    return null
+  })
+
+  // 태그 페이지 생성
+  Array.from(tagSet).forEach(tag => {
+    createPage({
+      path: `/topics/${tag}/`,
+      component: tagTemplate,
+      context: {
+        tag,
+      },
+    })
+  })
+
+  // 카테고리 페이지 생성
+  Array.from(categorySet).forEach(category => {
+    createPage({
+      path: `/categories/${category}/`,
+      component: categoryTemplate,
+      context: {
+        category,
+      },
+    })
   })
 }
+
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
+
   if (node.internal.type === `MarkdownRemark`) {
     const value = createFilePath({ node, getNode })
+    
+    // slug 생성
+    let slug = value
+    if (node.frontmatter.slug) {
+      slug = `/${node.frontmatter.slug}/`
+    }
+
     createNodeField({
       name: `slug`,
       node,
-      value,
+      value: slug,
+    })
+
+    // 추가 필드 생성
+    createNodeField({
+      name: `template`,
+      node,
+      value: node.frontmatter.template || 'post',
     })
   }
 }
