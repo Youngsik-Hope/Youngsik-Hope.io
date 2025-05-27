@@ -2,19 +2,16 @@ import React from "react"
 import AboutPage from "../components/about/aboutPage"
 
 import AboutGrid from "../components/about/aboutGrid"
-import Seo from "../components/seo"
+import SEO from "../components/SEO"
 
-import Layout from "../components/layout"
+import Layout from "../components/Layout"
 import AboutExtra from "../components/about/aboutExtra"
 import AboutHeader from "../components/about/aboutHeader"
 
 const About = () => {
   return (
     <Layout>
-      <Seo
-        title="About - Youngsik"
-        description="Youngsik is a visually striking and highly customizable open source theme built on the powerful Gatsby framework and integrated with the versatile Decap CMS."
-      ></Seo>
+      <SEO title="About" />
       <AboutHeader></AboutHeader>
       <AboutPage></AboutPage>
       <AboutGrid></AboutGrid>

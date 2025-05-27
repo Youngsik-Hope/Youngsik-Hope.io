@@ -5,16 +5,20 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions
   const typeDefs = `
-    type MarkdownRemarkFrontmatter {
+    type MarkdownRemark implements Node {
+      frontmatter: Frontmatter!
+    }
+    type Frontmatter {
       title: String!
       date: Date! @dateformat
-      template: String!
+      template: String
       tags: [String]
       categories: [String]
       description: String
       thumbnail: File @fileByRelativePath
       comments_off: Boolean
       slug: String
+      draft: Boolean
     }
   `
   createTypes(typeDefs)
@@ -27,7 +31,7 @@ exports.createPages = async ({ graphql, actions }) => {
     {
       allMarkdownRemark(
         sort: { frontmatter: { date: DESC } }
-        filter: { frontmatter: { template: { in: ["post", "page"] } } }
+        filter: { frontmatter: { draft: { ne: true } } }
       ) {
         edges {
           node {
@@ -42,7 +46,16 @@ exports.createPages = async ({ graphql, actions }) => {
               tags
               categories
               description
-              thumbnail
+              thumbnail {
+                childImageSharp {
+                  gatsbyImageData(
+                    width: 800
+                    height: 400
+                    placeholder: BLURRED
+                    formats: [AUTO, WEBP, AVIF]
+                  )
+                }
+              }
               comments_off
             }
           }
@@ -78,10 +91,10 @@ exports.createPages = async ({ graphql, actions }) => {
       node.frontmatter.categories.forEach(category => categorySet.add(category))
     }
 
-    // 페이지 생성
+    // 페이지 생성 - 모든 포스트를 blog-post 템플릿으로 처리
     createPage({
       path: node.fields.slug,
-      component: node.frontmatter.template === 'post' ? postTemplate : pageTemplate,
+      component: path.resolve(`./src/templates/blog-post.js`),
       context: {
         slug: node.fields.slug,
         previous,
@@ -131,11 +144,11 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value: slug,
     })
 
-    // 추가 필드 생성
+    // 추가 필드 생성 - template이 없으면 'blog-post'를 기본값으로 사용
     createNodeField({
       name: `template`,
       node,
-      value: node.frontmatter.template || 'post',
+      value: node.frontmatter.template || 'blog-post',
     })
   }
 }

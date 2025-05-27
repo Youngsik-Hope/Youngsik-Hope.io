@@ -1,19 +1,16 @@
 import React from "react"
-import Layout from "../components/layout"
+import Layout from "../components/Layout"
 import Input from "../components/Atoms/input"
 import Button from "../components/Atoms/button"
 import Fade from "react-reveal/Fade"
-import Seo from "../components/seo"
+import SEO from "../components/SEO"
 
 import image from "../images/holographic-background.webp"
 
 const Contact = () => {
   return (
     <Layout>
-      <Seo
-        title="Contact - Youngsik"
-        description="Youngsik is a visually striking and highly customizable open source theme built on the powerful Gatsby framework and integrated with the versatile Decap CMS"
-      ></Seo>
+      <SEO title="Contact" />
 
       <div className="max-w-7xl mx-auto mt-10 flex text-white xxs:flex-col sm:flex-row">
         <Fade duration={1200}>
@@ -151,64 +148,68 @@ const Contact = () => {
             <form className="mt-5" name="contact" method="POST" netlify>
               <div className="flex xxs:flex-col sm:flex-row">
                 <div className="sm:mr-5 xxs:mr-0">
-                  <label>
-                    <Input
-                      placeholder="Your Name"
-                      type="text"
-                      name="name"
-                    ></Input>
-                  </label>
+                  <label htmlFor="name" className="block mb-2">Name</label>
+                  <Input
+                    id="name"
+                    placeholder="Your Name"
+                    type="text"
+                    name="name"
+                    required
+                    aria-required="true"
+                  />
                 </div>
                 <div className="sm:ml-5 xxs:ml-0 xxs:mt-2 sm:mt-0">
-                  <label>
-                    <Input
-                      placeholder="Your Email"
-                      type="email"
-                      name="email"
-                    ></Input>
-                  </label>
+                  <label htmlFor="email" className="block mb-2">Email</label>
+                  <Input
+                    id="email"
+                    placeholder="Your Email"
+                    type="email"
+                    name="email"
+                    required
+                    aria-required="true"
+                  />
                 </div>
               </div>
 
               <div className="flex mt-5 xxs:flex-col sm:flex-row">
                 <div className="sm:mr-5 xxs:mr-0">
-                  <label>
-                    <Input
-                      placeholder="Your Company"
-                      type="company"
-                      name="company"
-                    ></Input>
-                  </label>
+                  <label htmlFor="company" className="block mb-2">Company</label>
+                  <Input
+                    id="company"
+                    placeholder="Your Company"
+                    type="text"
+                    name="company"
+                  />
                 </div>
                 <div className="sm:ml-5 xxs:ml-0 xxs:mt-2 sm:mt-0">
-                  <label>
-                    {" "}
-                    <Input
-                      placeholder="Your Phone"
-                      type="phone"
-                      name="phone"
-                    ></Input>
-                  </label>
+                  <label htmlFor="phone" className="block mb-2">Phone</label>
+                  <Input
+                    id="phone"
+                    placeholder="Your Phone"
+                    type="tel"
+                    name="phone"
+                  />
                 </div>
               </div>
-              <label>
+              <div className="mt-5">
+                <label htmlFor="message" className="block mb-2">Message</label>
                 <textarea
-                  className="mt-5 w-full bg-bg bg-opacity-20 rounded-xl p-5 focus:outline-none focus:ring-2 focus:ring-purple focus:border-transparent"
+                  id="message"
+                  className="w-full bg-bg bg-opacity-20 rounded-xl p-5 focus:outline-none focus:ring-2 focus:ring-purple focus:border-transparent"
                   rows="5"
                   placeholder="How can we help you?"
-                  type="text"
-                  name="Message"
-                ></textarea>
-              </label>
-              <div>
-                <label>
-                  <Button
-                    type="submit"
-                    title="Send Message"
-                    colorClass="bg-gradient-to-r from-pink to-purple font-montserrat"
-                    marginClass="mt-5"
-                  ></Button>
-                </label>
+                  name="message"
+                  required
+                  aria-required="true"
+                />
+              </div>
+              <div className="mt-5">
+                <Button
+                  type="submit"
+                  title="Send Message"
+                  colorClass="bg-gradient-to-r from-pink to-purple font-montserrat"
+                  marginClass="mt-5"
+                />
               </div>
             </form>
           </div>

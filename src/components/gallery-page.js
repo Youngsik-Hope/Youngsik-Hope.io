@@ -5,6 +5,11 @@ import HeroImage from "../images/3D-liquid-abstract-2.webp"
 import BackGroud from "../images/holographic-background.webp"
 
 const Gallery = () => {
+  const handleImageClick = (e) => {
+    e.preventDefault();
+    // 이미지 클릭 시 수행할 동작
+  };
+
   return (
     <div className="max-w-7xl mx-auto mt-10">
       <Fade duration={2200}>
@@ -31,119 +36,108 @@ const Gallery = () => {
 
       <div className="max-w-7xl mx-auto px-8 mt-5">
         <Fade bottom cascade>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8">
-            <a
-              href="#"
-              className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 md:h-80"
+          <div className="gallery-grid">
+            <button
+              onClick={handleImageClick}
+              className="gallery-item-button"
+              aria-label="View gallery item 1"
             >
               <img
                 src={BackGroud}
                 loading="lazy"
                 alt="HeroImage"
-                className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
               />
-
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50"></div>
-
-              <span className="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">
-                Clean Animations
-              </span>
-            </a>
-
-            <a
-              href="#"
-              className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 md:col-span-2 md:h-80"
+            </button>
+            <button
+              onClick={handleImageClick}
+              className="gallery-item-button"
+              aria-label="View gallery item 2"
             >
               <img
                 src={BackGroud}
                 loading="lazy"
                 alt="HeroImage"
-                className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
               />
-
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50"></div>
-
-              <span className="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">
-                Easy to use
-              </span>
-            </a>
-
-            <a
-              href="#"
-              className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 md:col-span-2 md:h-80"
+            </button>
+            <button
+              onClick={handleImageClick}
+              className="gallery-item-button"
+              aria-label="View gallery item 3"
             >
               <img
                 src={BackGroud}
                 loading="lazy"
                 alt="HeroImage"
-                className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
               />
-
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50"></div>
-
-              <span className="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">
-                Responsive
-              </span>
-            </a>
-
-            <a
-              href="#"
-              className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 md:h-80"
+            </button>
+            <button
+              onClick={handleImageClick}
+              className="gallery-item-button"
+              aria-label="View gallery item 4"
             >
               <img
                 src={BackGroud}
                 loading="lazy"
                 alt="HeroImage"
-                className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
               />
-
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50"></div>
-
-              <span className="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">
-                Tailwind CSS
-              </span>
-            </a>
-            <a
-              href="#"
-              className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 md:h-80"
+            </button>
+            <button
+              onClick={handleImageClick}
+              className="gallery-item-button"
+              aria-label="View gallery item 5"
             >
               <img
                 src={BackGroud}
                 loading="lazy"
                 alt="HeroImage"
-                className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
               />
-
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50"></div>
-
-              <span className="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">
-                CMS Ready
-              </span>
-            </a>
-
-            <a
-              href="#"
-              className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 md:col-span-2 md:h-80"
+            </button>
+            <button
+              onClick={handleImageClick}
+              className="gallery-item-button"
+              aria-label="View gallery item 6"
             >
               <img
                 src={BackGroud}
                 loading="lazy"
                 alt="HeroImage"
-                className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
               />
-
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50"></div>
-
-              <span className="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">
-                Fast
-              </span>
-            </a>
+            </button>
           </div>
         </Fade>
       </div>
     </div>
   )
 }
+
+// 스타일 추가
+const styles = `
+  .gallery-item-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery-item-button:hover {
+    transform: scale(1.05);
+  }
+
+  .gallery-item-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
+
+// 스타일 태그 추가
+const styleSheet = document.createElement("style");
+styleSheet.type = "text/css";
+styleSheet.innerText = styles;
+document.head.appendChild(styleSheet);
 
 export default Gallery
 

@@ -1,15 +1,12 @@
 import React from "react"
 import Gallery from "../components/gallery-page"
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+import Layout from "../components/Layout"
+import SEO from "../components/SEO"
 
 const GalleryPage = () => {
   return (
     <Layout>
-      <Seo
-        title="Youngsik - Gallery"
-        description="Youngsik is a visually striking and highly customizable open source theme built on the powerful Gatsby framework and integrated with the versatile Decap CMS"
-      ></Seo>
+      <SEO title="Gallery" />
       <Gallery></Gallery>
     </Layout>
   )

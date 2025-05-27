@@ -8,7 +8,11 @@ const AboutHeader = () => {
     <Fade>
       <div className="max-w-7xl mx-auto mt-10">
         <div className="overflow-hidden rounded-xl max-h-96 m-4">
-          <img alt="Image" src={Image3}></img>
+          <img
+            src={Image3}
+            alt="About header background"
+            className="about-header-image"
+          ></img>
         </div>
         <div className="mt-10 px-8">
           <h1 className="font-bold text-xl text-black text-gradient bg-gradient-to-r from-pink to-purple">

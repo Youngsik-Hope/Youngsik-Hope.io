@@ -1,22 +1,19 @@
 import React from "react"
 import BlogHeader from "../components/Blog/blogHeader"
 import BlogsContainer from "../components/Blog/blogsContainer"
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+import Layout from "../components/Layout"
+import SEO from "../components/SEO"
 import { graphql } from "gatsby"
 
 const Blog = ({ data }) => {
-  console.log("data", data)
-  let HeaderPost = data?.allMarkdownRemark?.edges[0]
-  let otherPosts = data?.allMarkdownRemark?.edges.slice(1)
+  const posts = data?.allMarkdownRemark?.edges || [];
+  const HeaderPost = posts[0];
+  const otherPosts = posts.slice(1);
 
   return (
     <Layout>
-      <Seo
-        title="Youngsik - Blog"
-        description="Youngsik is a visually striking and highly customizable open source theme built on the powerful Gatsby framework and integrated with the versatile Decap CMS"
-      ></Seo>
-      <BlogHeader post={HeaderPost} />
+      <SEO title="Blog" />
+      {HeaderPost && <BlogHeader post={HeaderPost} />}
       <BlogsContainer data={otherPosts} />
     </Layout>
   )
@@ -24,25 +21,32 @@ const Blog = ({ data }) => {
 
 export default Blog
 
-export const WorkPageQuery = graphql`
-  query IndexPage {
+export const query = graphql`
+  query BlogPageQuery {
     allMarkdownRemark(
-      filter: { frontmatter: { templateKey: { eq: "blog-post" } } }
-      limit: 30
       sort: { frontmatter: { date: DESC } }
+      filter: { frontmatter: { draft: { ne: true } } }
     ) {
       edges {
         node {
+          id
+          excerpt(pruneLength: 200)
           fields {
             slug
           }
           frontmatter {
-            date(formatString: "DD:MM:YYYY hh:mm a")
+            date(formatString: "MMMM DD, YYYY")
             title
             description
+            tags
             featuredimage {
               childImageSharp {
-                gatsbyImageData
+                gatsbyImageData(
+                  width: 800
+                  height: 400
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
               }
             }
           }

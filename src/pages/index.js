@@ -1,26 +1,66 @@
-import * as React from "react"
-import Layout from "../components/layout"
+import React from 'react';
+import { graphql } from 'gatsby';
+import Layout from '../components/Layout';
+import SEO from '../components/SEO';
+import DachshundAnimation from '../components/DachshundAnimation';
+import PostCard from '../components/PostCard';
+import '../styles/dachshund-animation.scss';
+import '../styles/post-card.scss';
+import '../styles/index.scss';
 
-// Components
-import Header from "../components/Home/header"
-import FeatureSection from "../components/Home/featureSection"
-import Testimonial from "../components/Home/testimonial"
-import FeaturedBlog from "../components/FeaturedBlog"
-import Seo from "../components/seo"
+const IndexPage = ({ data }) => {
+  const posts = data.allMarkdownRemark.nodes;
 
-const IndexPage = () => (
-  <div className="h-auto w-screen">
+  return (
     <Layout>
-      <Seo
-        title="Youngsik - Gatsby Theme"
-        description="Youngsik is a visually striking and highly customizable open source theme built on the powerful Gatsby framework and integrated with the versatile Decap CMS."
-      ></Seo>
-      <Header></Header>
-      <FeatureSection></FeatureSection>
-      <FeaturedBlog></FeaturedBlog>
-      <Testimonial></Testimonial>
+      <SEO title="Home" />
+      <div className="home-container">
+        <section className="hero-section">
+          <DachshundAnimation />
+        </section>
+        <section className="posts-section">
+          <div className="posts-grid">
+            {posts.map(post => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </div>
+        </section>
+      </div>
     </Layout>
-  </div>
-)
+  );
+};
 
-export default IndexPage
+export const query = graphql`
+  query {
+    allMarkdownRemark(
+      sort: { frontmatter: { date: DESC } }
+      filter: { frontmatter: { draft: { ne: true } } }
+    ) {
+      nodes {
+        id
+        excerpt(pruneLength: 200)
+        fields {
+          slug
+        }
+        frontmatter {
+          title
+          date
+          categories
+          tags
+          thumbnail {
+            childImageSharp {
+              gatsbyImageData(
+                width: 800
+                height: 400
+                placeholder: BLURRED
+                formats: [AUTO, WEBP, AVIF]
+              )
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export default IndexPage;

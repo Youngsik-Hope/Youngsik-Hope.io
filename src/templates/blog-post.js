@@ -1,6 +1,6 @@
 import React from "react"
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+import Layout from "../components/Layout"
+import SEO from "../components/SEO"
 import { graphql } from "gatsby"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import LeftIcon from "../images/left-icon.svg"
@@ -63,7 +63,7 @@ const BlogPost = props => {
 
   return (
     <Layout>
-      <Seo
+      <SEO
         title="Blog"
         description="We have been providing professional repair services in the city since 1993 ,and we have helped thousands of local car owners to restore their vehicles."
       />

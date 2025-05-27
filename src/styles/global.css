@@ -1,40 +1,156 @@
+/* Base styles and CSS variables */
+:root {
+  /* Colors */
+  --color-primary: #4a90e2;
+  --color-primary-light: #64b5f6;
+  --color-primary-dark: #357abd;
+  
+  /* Background colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-tertiary: #e0e0e0;
+  
+  /* Text colors */
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-tertiary: #999999;
+  
+  /* Border colors */
+  --border-color: #e0e0e0;
+  --border-color-dark: #404040;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Dark mode variables */
+.dark-mode {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --bg-tertiary: #404040;
+  
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --text-tertiary: #a0a0a0;
+  
+  --border-color: #404040;
+  --border-color-dark: #505050;
+}
+
+/* Base styles */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-p, input, textarea {
+/* Typography */
+body {
   font-family: "Noto Serif", sans-serif;
-  font-size: 1rem !important;
-  line-height: 1.5rem !important;
+  font-size: 1rem;
+  line-height: 1.5;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
-
- h1,h2,h3,h4,h5,h6,span {
+h1, h2, h3, h4, h5, h6 {
   font-family: "Montserrat", sans-serif;
+  line-height: 1.2;
+  margin-bottom: var(--spacing-md);
 }
 
 a {
   font-family: "Montserrat", sans-serif;
-  font-size: 1rem !important;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
-@layer base {
-  a {
-    color: white;
+a:hover {
+  color: var(--color-primary-light);
+}
+
+/* Utility classes */
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus styles */
+:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Responsive container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
   }
+  
+  .container {
+    padding: 0 var(--spacing-sm);
+  }
+}
+
+/* Print styles */
+@media print {
   body {
-    background-color: hsla(243, 60%, 95%, 1);
+    background: white;
+    color: black;
+  }
+  
+  a {
+    text-decoration: underline;
+  }
+  
+  .no-print {
+    display: none;
   }
 }
-
-@layer utilities {
-  .text-gradient {
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-}
-
 
 /* ~~~~ Custom CSS - I know it's bad T_T ~~~~ */
 
