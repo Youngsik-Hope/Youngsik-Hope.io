@@ -7,7 +7,6 @@ import BackGroud from "../images/holographic-background.webp"
 const Gallery = () => {
   const handleImageClick = (e) => {
     e.preventDefault();
-    // 이미지 클릭 시 수행할 동작
   };
 
   return (

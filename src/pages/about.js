@@ -1,9 +1,7 @@
 import React from "react"
 import AboutPage from "../components/about/aboutPage"
-
 import AboutGrid from "../components/about/aboutGrid"
 import SEO from "../components/SEO"
-
 import Layout from "../components/Layout"
 import AboutExtra from "../components/about/aboutExtra"
 import AboutHeader from "../components/about/aboutHeader"
