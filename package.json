@@ -1,9 +1,9 @@
 {
-  "name": "taniarascia.com",
+  "name": "Youngsik-Hope",
   "private": true,
   "version": "7.1",
-  "description": "Tania Rascia's personal website.",
-  "author": "Tania Rascia",
+  "description": "Youngsik Hope's personal website.",
+  "author": "Youngsik Won",
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/taniarascia/taniarascia.com"
+    "url": "https://github.com/Youngsik-Hope/Youngsik-Hope.io"
   },
   "dependencies": {
     "gatsby": "^5.14.3",
