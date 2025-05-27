@@ -10,7 +10,7 @@ const Header = () => {
         <div className="my-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-0 xl:mt-28 flex gap-10 lg:flex-justify lg:flex flex-col lg:flex-row flex-col-reverse">
           <div className="text-center lg:text-left flex flex-col justify-center">
             <h1 className="text-black text-4xl font-semibold opacity-70">
-              MY NAME IS HOLO
+              MY NAME IS Youngsik
             </h1>
             <h2 className="text-black text-gradient bg-gradient-to-r from-pink to-purple text-6xl font-bold xxs:text-2xl xs:text-3xl sm:text-5xl lg:text-6xl">
               Hi there!

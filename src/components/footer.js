@@ -25,7 +25,7 @@ const Footer = () => {
               <div className="text-black font-bold block-inline">
                 <p>
                   <a className="text-black font-bold block-inline" href="/">
-                    Holo
+                    Youngsik
                   </a>
 
                   <a

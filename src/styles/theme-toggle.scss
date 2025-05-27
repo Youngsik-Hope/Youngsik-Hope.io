@@ -1,0 +1,100 @@
+.theme-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary-color);
+    border-radius: 50%;
+  }
+}
+
+.theme-toggle-track {
+  width: 40px;
+  height: 24px;
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  position: relative;
+  transition: background-color 0.2s ease;
+  border: 2px solid var(--text-color);
+}
+
+.theme-toggle-thumb {
+  width: 20px;
+  height: 20px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg-primary);
+
+  .dark-mode & {
+    transform: translateX(16px);
+  }
+}
+
+// 다크모드 변수
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --text-color: #333333;
+  --primary-color: #4a90e2;
+}
+
+.dark-mode {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --text-color: #ffffff;
+  --primary-color: #64b5f6;
+}
+
+// 전역 스타일 적용
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// 다크모드에서의 추가 스타일
+.dark-mode {
+  a {
+    color: #64b5f6;
+    &:hover {
+      color: #90caf9;
+    }
+  }
+
+  .post-card {
+    background-color: var(--bg-secondary);
+    border-color: #404040;
+  }
+
+  .category-header,
+  .post-card-header {
+    background-color: var(--bg-secondary);
+  }
+
+  .tag {
+    background-color: #404040;
+    color: #ffffff;
+    &:hover {
+      background-color: #505050;
+    }
+  }
+} 

@@ -1,9 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: `Holo - Gatsby Starter`,
-    description: `Holo is a visually striking and highly customizable open source theme built on the powerful Gatsby framework and integrated with the versatile Decap CMS`,
-    siteUrl: "https://holo-theme.netlify.app/",
-    author: `Travis Lord <hi@travislord.xyz>`,
+    title: `Youngsik-Hope's Blog`,
+    description: `개발과 일상을 기록하는 Youngsik-Hope의 블로그입니다.`,
+    siteUrl: "https://youngsik-hope.io/",
+    author: `Youngsik-Hope`,
   },
   plugins: [
     `gatsby-plugin-image`,
@@ -44,7 +44,6 @@ module.exports = {
           {
             resolve: "gatsby-remark-copy-linked-files",
             options: {
-              // destinationDir: "public",
               ignoreFileExtensions: [
                 `png`,
                 `jpg`,
@@ -59,11 +58,14 @@ module.exports = {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 1360,
-              withWebp: false,
+              withWebp: true,
+              withAvif: true,
               showCaptions: false,
-              quality: 100,
+              quality: 90,
               disableBgImageOnAlpha: false,
               wrapperStyle: `margin: 7vw 0;`,
+              linkImagesToOriginal: false,
+              backgroundColor: 'transparent',
             },
           },
           {
@@ -72,7 +74,6 @@ module.exports = {
               wrapperStyle: `margin-bottom: 1.0725rem`,
             },
           },
-          `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
         ],
       },
@@ -80,33 +81,54 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Holo - Gatsby Starter Theme`,
-        short_name: `Holo`,
+        name: `Youngsik-Hope's Blog`,
+        short_name: `Youngsik-Hope`,
         start_url: `/`,
         background_color: `#ebebfa`,
         theme_color: `#ebebfa`,
         display: `standalone`,
-        icon: `src/images/3D-liquid-abstract-5.webp`, // This path is relative to the root of the site.
-      },
-    },
-    {
-      resolve: "gatsby-plugin-netlify-cms",
-      options: {
-        enableIdentityWidget: false,
+        icon: `src/images/3D-liquid-abstract-5.webp`,
+        crossOrigin: `use-credentials`,
+        cache_busting_mode: 'query',
+        include_favicon: true,
+        legacy: true,
+        theme_color_in_head: true,
       },
     },
     {
       resolve: "gatsby-plugin-decap-cms",
       options: {
         modulePath: `${__dirname}/src/cms/cms.js`,
+        enableIdentityWidget: false,
+        publicPath: "admin",
+        htmlTitle: "Youngsik-Hope CMS",
+      },
+    },
+    {
+      resolve: `gatsby-plugin-offline`,
+      options: {
+        precachePages: [`/`, `/blog/*`, `/categories/*`, `/topics/*`],
+        workboxConfig: {
+          runtimeCaching: [
+            {
+              urlPattern: /(\.js$|\.css$|static\/)/,
+              handler: "CacheFirst",
+            },
+            {
+              urlPattern: /^https?:.*\/page-data\/.*\/page-data\.json/,
+              handler: "NetworkFirst",
+            },
+            {
+              urlPattern: /^https?:.*\.(png|jpg|jpeg|webp|avif|svg|gif|tiff|js|woff|woff2|ttf|eot)$/,
+              handler: "StaleWhileRevalidate",
+            },
+          ],
+        },
       },
     },
     `gatsby-plugin-netlify`,
     `gatsby-plugin-gatsby-cloud`,
     "gatsby-plugin-postcss",
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    `gatsby-plugin-offline`,
     `gatsby-plugin-sitemap`,
   ],
 }
