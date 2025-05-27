@@ -1437,10 +1437,10 @@
   resolved "https://registry.yarnpkg.com/@fontsource/montserrat/-/montserrat-5.1.0.tgz#3a73a60be1ecd247ff879287f63acda43962cece"
   integrity sha512-HB4+rWP9Y8g6T9RGRVJk2SvAJtx2eBAXuivvPOqQdD806/9WESUfucfH9LqFj3bGgdhNCfh0Rv0NGuwEmBLRiw==
 
-"@fontsource/noto-serif@^5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@fontsource/noto-serif/-/noto-serif-5.1.0.tgz#7d1c76e9ed1a1f9dcca7cbaed98a1e7015fba81a"
-  integrity sha512-C/rancPr6kcRGNAut7g8CAZNhB1kOWB6VRQDCo6ZoUnW2Mja962ZcrU0nD7nFeSMJiSeyX5phCrajMaUJE3SGg==
+"@fontsource/noto-serif@^5.2.7":
+  version "5.2.7"
+  resolved "https://registry.yarnpkg.com/@fontsource/noto-serif/-/noto-serif-5.2.7.tgz#0868ee30e9f8b1c929892a8316b1c71da985699e"
+  integrity sha512-EcsWb3Pxrg5DwLcY1bg4fmRhdytzi+vX6JPJjtzPjPy0fxpBqmk12RqgF4vmAT7zjjppdCD7z2iwyXl3AqeNRQ==
 
 "@gatsbyjs/parcel-namer-relative-to-cwd@2.14.0":
   version "2.14.0"
