@@ -3,7 +3,7 @@ module.exports = {
     title: "Tania's Website",
     author: { name: 'Tania' },
     pathPrefix: '/',
-    siteUrl: 'https://tania.dev',
+    siteUrl: 'https://Youngsik-Hope.io',
     description:
       'Software engineer and open-source creator. This is my digital garden.',
     feedUrl: 'https://tania.dev/rss.xml',
@@ -18,7 +18,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: "Tania's Website",
+        name: "Hope's Website",
         short_name: 'tania.dev',
         description:
           'Software engineer and open source creator. This is my digital garden.',
